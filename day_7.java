@@ -1,43 +1,28 @@
+import java.util.*;
 
-class Node
-{
-	Node left, right;
-	int data;
-	
-	Node(int d)
-	{
-		data = d;
-		left = right = null;
-	}
-	
-}
+// User function Template for Java
 
-//This function should return head to the DLL
+class Solution {
+    int getMinDiff(int[] arr, int k) {
+        // code here
+        int n = arr.length;
+    Arrays.sort(arr);
+    
+    int result = arr[n - 1] - arr[0];  // Initial difference
 
-class Solution
-{
-    Node head = null;  // Head of the DLL
-    Node prev = null;  // Previous node in DLL
-    //Function to convert binary tree to doubly linked list and return it.
-	
-    Node bToDLL(Node root) {
-        if (root == null) return null;
+    int smallest = arr[0] + k;
+    int largest = arr[n - 1] - k;
 
-        // Recursively convert the left subtree
-        bToDLL(root.left);
+    for (int i = 0; i < n - 1; i++) {
+        int minHeight = Math.min(smallest, arr[i + 1] - k);
+        int maxHeight = Math.max(largest, arr[i] + k);
 
-        // Convert the current node
-        if (prev == null) {
-            head = root;  // First node becomes the head of DLL
-        } else {
-            root.left = prev;  // Link the current node's left to prev
-            prev.right = root; // Link prev's right to current node
+        if (minHeight >= 0) {
+            result = Math.min(result, maxHeight - minHeight);
         }
-        prev = root;  // Update prev to current node
+    }
+    return result;
 
-        // Recursively convert the right subtree
-        bToDLL(root.right);
-
-        return head;
+        
     }
 }
