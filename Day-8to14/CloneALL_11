@@ -1,0 +1,63 @@
+
+
+/*Please note that it's Function problem i.e.
+you need to write your solution in the form of Function(s) only.
+Driver Code to call/invoke your function is mentioned above.*/
+
+/*
+class Node {
+    int data;
+    Node next, random;
+
+    Node(int d)
+    {
+        data = d;
+        next = random = null;
+
+    }
+}*/
+
+class Solution {
+    // Function to clone a linked list with next and random pointer.
+    Node copyList(Node head) {
+        // your code here
+         if (head == null) {
+            return null;
+        }
+
+        // Step 1: Create the copy of each node and insert it next to the original node
+        Node curr = head;
+        while (curr != null) {
+            Node copy = new Node(curr.data);
+            copy.next = curr.next;
+            curr.next = copy;
+            curr = copy.next;
+        }
+
+        // Step 2: Assign random pointers to the copied nodes
+        curr = head;
+        while (curr != null) {
+            if (curr.random != null) {
+                curr.next.random = curr.random.next;
+            }
+            curr = curr.next.next;
+        }
+
+        // Step 3: Separate the original list and the copied list
+        curr = head;
+        Node copyHead = head.next;
+        Node copyCurr = copyHead;
+        
+        while (curr != null) {
+            curr.next = curr.next.next;
+            if (copyCurr.next != null) {
+                copyCurr.next = copyCurr.next.next;
+            }
+            curr = curr.next;
+            copyCurr = copyCurr.next;
+        }
+
+        return copyHead;
+        
+    }
+}

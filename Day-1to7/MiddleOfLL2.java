@@ -5,7 +5,7 @@ class Node{
     Node next;
 }
 
-public class day_2 {
+public class MiddleOfLL2 {
     int getMiddle(Node head) {
         // Your code here.
         if(head.next==null){
